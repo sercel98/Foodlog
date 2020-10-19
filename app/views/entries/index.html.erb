@@ -1,5 +1,5 @@
 <% content_for :title do %>
-  Foodlog &ndash; <%= DateTime.now %>
+  Foodlog &ndash; <%= DateTime.now.to_s(:formated_date) %>
 <% end %>
 <div class="columns mt-6 is-centered">
   <% @entries.each do |entry| %>
@@ -12,8 +12,8 @@
           <div class="content">
             <p><span class="has-text-weight-bold"><%= entry.calories %></span> calories</p>
             <p><span class="has-text-weight-bold"><%= entry.proteins %></span> grams of protein</p>
-            <p><span class="has-text-weight-bold"><%= entry.carbohydrates %></span>grams of carbohydrates</p>
-            <p><span class="has-text-weight-bold"><%= entry.fats %></span>grams of fat</p>
+            <p><span class="has-text-weight-bold"><%= entry.carbohydrates %></span> grams of carbohydrates</p>
+            <p><span class="has-text-weight-bold"><%= entry.fats %></span> grams of fat</p>
             <p class="italic"> Logged <%= time_ago_in_words(entry.created_at)%> ago </p>
           </div>
         </div>
