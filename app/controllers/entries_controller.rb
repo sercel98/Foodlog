@@ -4,7 +4,7 @@ class EntriesController < ApplicationController
   # GET /entries
   # GET /entries.json
   def index
-    @entries = Entry.all
+    @entries = Entry.where("created_at >=", Date.today)
   end
 
   # GET /entries/1
@@ -28,7 +28,7 @@ class EntriesController < ApplicationController
 
     respond_to do |format|
       if @entry.save
-        format.html { redirect_to @entry, notice: 'Entry was successfully created.' }
+        format.html { redirect_to @entry, notice: "Entry was successfully created." }
         format.json { render :show, status: :created, location: @entry }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class EntriesController < ApplicationController
   def update
     respond_to do |format|
       if @entry.update(entry_params)
-        format.html { redirect_to @entry, notice: 'Entry was successfully updated.' }
+        format.html { redirect_to @entry, notice: "Entry was successfully updated." }
         format.json { render :show, status: :ok, location: @entry }
       else
         format.html { render :edit }
@@ -56,19 +56,20 @@ class EntriesController < ApplicationController
   def destroy
     @entry.destroy
     respond_to do |format|
-      format.html { redirect_to entries_url, notice: 'Entry was successfully destroyed.' }
+      format.html { redirect_to entries_url, notice: "Entry was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_entry
-      @entry = Entry.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def entry_params
-      params.require(:entry).permit(:meal_type, :calories, :proteins, :carbohydrates, :fats)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_entry
+    @entry = Entry.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def entry_params
+    params.require(:entry).permit(:meal_type, :calories, :proteins, :carbohydrates, :fats)
+  end
 end
